@@ -18,6 +18,7 @@ The command shows what the module declares and asks before installing it.
 pnpm install
 pnpm run check   # types, lint, and the same checks the build makes
 pnpm test        # unit tests of your own code
+pnpm run test:conformance   # oxidevm wasm test: the runner's contract, in Chromium
 pnpm run build   # writes dist/: module.json, adapter.mjs, your artifacts and SHA256SUMS
 ```
 

@@ -7,14 +7,16 @@
     "build": "oxidevm wasm build",
     "check": "tsc --noEmit && tsc --noEmit -p test && eslint . --max-warnings 0 && oxidevm wasm build --check",
     "release": "oxidevm wasm release",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:conformance": "oxidevm wasm build && oxidevm wasm test --arg 2 --arg 3"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
-    "@oxidevm/cli": "0.0.7",
-    "@oxidevm/sdk": "0.0.7",
+    "@oxidevm/cli": "0.0.8",
+    "@oxidevm/sdk": "0.0.8",
     "@types/node": "24.13.3",
     "eslint": "10.7.0",
+    "playwright": "1.61.1",
     "typescript": "6.0.3",
     "typescript-eslint": "8.65.0",
     "vitest": "3.2.4"

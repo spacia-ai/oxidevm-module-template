@@ -8,5 +8,5 @@ This repository is an OxideVM WebAssembly module. `module.ts` holds the whole de
 - Import types from `@oxidevm/sdk/wasm` with `import type`; the only value import is `defineModule`. The adapter ships as one self-contained file.
 - No `any`, no `@ts-ignore`, no non-null assertions. Treat everything from outside (arguments, bytes, WebAssembly exports) as `unknown` and check it.
 - Artifacts are files in this repository named by `from`. Pin upstream binaries by hash where they come from, and keep their licenses and notices in this repository.
-- Verify with `pnpm run check` (types, lint, and `oxidevm wasm build --check`), then `pnpm test`.
+- Verify with `pnpm run check` (types, lint, and `oxidevm wasm build --check`), then `pnpm test`, then `pnpm run test:conformance` (`oxidevm wasm test` in a real browser).
 - Release by tag: `pnpm run release` prints the steps.
