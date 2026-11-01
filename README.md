@@ -12,6 +12,34 @@ oxidevm wasm add github:OWNER/REPO@v0.1.0
 
 The command shows what the module declares and asks before installing it.
 
+## Run it from a shell
+
+The module declares the command `my-module`. An application that installed it turns the command on for one Userspace VM, and from then on any program in that VM can run it:
+
+```ts
+import { enableModuleCommands } from "@oxidevm/sdk/wasm";
+import { myModule } from "./oxidevm.modules.generated";
+
+const commands = await enableModuleCommands(vm, myModule);
+// A terminal in the VM now runs `my-module 2 3`, which prints 5.
+await commands.disable();
+```
+
+A third argument turns on only some of a module's commands (`commands`), sets its `options`, and bounds how many runs may be active at once (`concurrency`, 4 by default).
+
+Turning the command on places a stub at `/usr/local/bin/my-module`. A shell finds it when its `PATH` lists `/usr/local/bin` before `/usr/bin`, and then the command takes the place of an image program with the same name. It runs as the guest user, with the caller's arguments, environment, working directory and standard streams. A shell sees these exit statuses:
+
+| Status | Meaning |
+| --- | --- |
+| 0-119 | the module's own status |
+| 120 | the module could not be launched |
+| 122 | a prerequisite is missing |
+| 123 | the adapter failed: it threw, or returned an invalid status |
+| 125 | the engine failed |
+| 126 | the stub ran as an ordinary program: the command is not turned on in this VM, or more runs are active than `concurrency` allows |
+| 127 | the command is not on `PATH` |
+| 128+n | the process was killed by signal n (130 for Ctrl+C) |
+
 ## Develop it
 
 ```sh
