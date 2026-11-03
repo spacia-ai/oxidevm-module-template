@@ -40,6 +40,11 @@ Turning the command on places a stub at `/usr/local/bin/my-module`. A shell find
 | 127 | the command is not on `PATH` |
 | 128+n | the process was killed by signal n (130 for Ctrl+C) |
 
+## Network
+
+This module declares no network reach: it opens no connections of its own
+and its `fetch` fails with "network not declared". A service still serves programs in the VM through `expose`.
+
 ## Develop it
 
 ```sh
